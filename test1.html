@@ -259,7 +259,7 @@
 		if (typeof web3 !== 'undefined') {
 			web3 = new Web3(web3.currentProvider);
 		} else {
-			web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/d0468ce18ad4a39a6aa19313d7af94"));
+			web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/5d0468ce18ad4a39a6aa19313d7af945"));
 		} 
 		
 			
@@ -278,7 +278,7 @@
 
  
 		//web3.eth.getBlockNumber().then(console.log);
-		//console.log("å€¼ä¸º:", "11111");
+		//console.log("ÖµÎª:", "11111");
 	 // alert();
 	var balance = web3.eth.getBalance("0x977fd7cfe42d757Aa914098F8A05E0509B40658B");
 	//console.log(balance); // instanceof BigNumber
@@ -289,11 +289,11 @@
 	
 	var contractAddress = "0xcDB2E4346f68754F5383ca05af5685ae850f6B3E";
 	 
-	// è´¦å·
+	// ÕËºÅ
 	var currentAccount = "0x977fd7cfe42d757Aa914098F8A05E0509B40658B";
 
 
-	// å®šä¹‰åˆçº¦
+	// ¶¨ÒåºÏÔ¼
 	var myContract = new web3.eth.Contract(abi, contractAddress, {
 		from: currentAccount, // default from address
 		gasPrice: '10000000000' // default gas price in wei, 10 gwei in this case
@@ -306,34 +306,34 @@
 	throw SyntaxError();
 	alert("after error.");
 
-	//ç›‘å¬æŸä¸ªåœ°å€äº¤æ˜“è®°å½•
+	//¼àÌýÄ³¸öµØÖ·½»Ò×¼ÇÂ¼
 	var addr = "0x977fd7cfe42d757Aa914098F8A05E0509B40658B"
 	var filter = web3.eth.filter({fromBlock:0, toBlock:'latest', address: addr});
 	filter.get(function (err, transactions) {
 	  transactions.forEach(function (tx) {
 		var txInfo = web3.eth.getTransaction(tx.transactionHash);
-		//è¿™æ—¶å¯ä»¥å°†äº¤æ˜“ä¿¡æ¯txInfoå­˜å…¥æ•°æ®åº“
+		//ÕâÊ±¿ÉÒÔ½«½»Ò×ÐÅÏ¢txInfo´æÈëÊý¾Ý¿â
 		console.log(txInfo);
 	  });
 	});
 
 
 
-	//æŸ¥è¯¢åˆçº¦åœ¨æŸä¸€åœ°å€äº¤æ˜“è®°å½•
+	//²éÑ¯ºÏÔ¼ÔÚÄ³Ò»µØÖ·½»Ò×¼ÇÂ¼
 	myContract.getPastEvents('Transfer', {
     filter: {_from: '0x977fd7cfe42d757Aa914098F8A05E0509B40658B'},
     fromBlock: 23081,
     toBlock: 'latest'
 }, (error, events) => { console.log(events); });
 	
-	//ERC20è½¬è´¦åŽTransactionçš„è®°å½•æ˜¯è¿™æ ·çš„ï¼švalueæ˜¯0ï¼Œä¸èƒ½æ®æ­¤å¾—åˆ°ERC20äº¤æ˜“ä¿¡æ¯ã€‚éœ€è¦ç”¨åˆ° TransactionReceipt
-	//å¾—åˆ°äº¤æ˜“é¢ï¼Œé‡Œé¢çš„logsçš„dataå°±æ˜¯äº¤æ˜“é¢
+	//ERC20×ªÕËºóTransactionµÄ¼ÇÂ¼ÊÇÕâÑùµÄ£ºvalueÊÇ0£¬²»ÄÜ¾Ý´ËµÃµ½ERC20½»Ò×ÐÅÏ¢¡£ÐèÒªÓÃµ½ TransactionReceipt
+	//µÃµ½½»Ò×¶î£¬ÀïÃæµÄlogsµÄdata¾ÍÊÇ½»Ò×¶î
 	var transaction = web3.eth.getTransactionReceipt("0x4aa5241a64ae7e0ddae070538818dfd49b01245324c34323fed97ea16c0c14cf");
 	console.log(transaction);
 
 
 
-	// æŸ¥çœ‹æŸä¸ªè´¦å·çš„ä»£å¸ä½™é¢
+	// ²é¿´Ä³¸öÕËºÅµÄ´ú±ÒÓà¶î
 	myContract.methods.balanceOf(currentAccount).call({}, function(error, result){
 		if(!error) {
 			console.log(result);
@@ -351,9 +351,9 @@
 	var addr_to = "0x5D2238753F3ca5E649f9250C303d5c196A069F24";
 	
 
-	//ä»£å¸è½¬è´¦
+	//´ú±Ò×ªÕË
 
-	// è¡¥é½64ä½ï¼Œä¸å¤Ÿå‰é¢ç”¨0è¡¥é½
+	// ²¹Æë64Î»£¬²»¹»Ç°ÃæÓÃ0²¹Æë
 	function addPreZero(num){
 	  var t = (num+'').length,
 	  s = '';
@@ -365,17 +365,17 @@
 	 
 	web3.eth.getTransactionCount(currentAccount, web3.eth.defaultBlock.pending).then(function(nonce){
 	 
-		// èŽ·å–äº¤æ˜“æ•°æ®
+		// »ñÈ¡½»Ò×Êý¾Ý
 		var txData = {
 			nonce: web3.utils.toHex(nonce),
 			gasLimit: web3.utils.toHex(99000),   
 			gasPrice: web3.utils.toHex(web3.utils.toWei('10', 'gwei')),
-			// æ³¨æ„è¿™é‡Œæ˜¯ä»£å¸åˆçº¦åœ°å€  
+			// ×¢ÒâÕâÀïÊÇ´ú±ÒºÏÔ¼µØÖ·  
 			to: contractAddress,
 			from: addr_from,
-			// è°ƒç”¨åˆçº¦è½¬è´¦valueè¿™é‡Œç•™ç©º
+			// µ÷ÓÃºÏÔ¼×ªÕËvalueÕâÀïÁô¿Õ
 			value: '0x00',         
-			// dataçš„ç»„æˆï¼Œç”±ï¼š0x + è¦è°ƒç”¨çš„åˆçº¦æ–¹æ³•çš„function signature + è¦ä¼ é€’çš„æ–¹æ³•å‚æ•°ï¼Œæ¯ä¸ªå‚æ•°éƒ½ä¸º64ä½(å¯¹transferæ¥è¯´ï¼Œç¬¬ä¸€ä¸ªæ˜¯æŽ¥æ”¶äººçš„åœ°å€åŽ»æŽ‰0xï¼Œç¬¬äºŒä¸ªæ˜¯ä»£å¸æ•°é‡çš„16è¿›åˆ¶è¡¨ç¤ºï¼ŒåŽ»æŽ‰å‰é¢0xï¼Œç„¶åŽè¡¥é½ä¸º64ä½)
+			// dataµÄ×é³É£¬ÓÉ£º0x + Òªµ÷ÓÃµÄºÏÔ¼·½·¨µÄfunction signature + Òª´«µÝµÄ·½·¨²ÎÊý£¬Ã¿¸ö²ÎÊý¶¼Îª64Î»(¶ÔtransferÀ´Ëµ£¬µÚÒ»¸öÊÇ½ÓÊÕÈËµÄµØÖ·È¥µô0x£¬µÚ¶þ¸öÊÇ´ú±ÒÊýÁ¿µÄ16½øÖÆ±íÊ¾£¬È¥µôÇ°Ãæ0x£¬È»ºó²¹ÆëÎª64Î»)
 			data: '0x' + 'a9059cbb' + addPreZero('5D2238753F3ca5E649f9250C303d5c196A069F23') + addPreZero(web3.utils.toHex(1000).substr(2))
 		}
 	 
@@ -409,17 +409,17 @@
 	
 	
 	
-	//ethè½¬è´¦ 
+	//eth×ªÕË 
 
-	// è¯»å–ç§é’¥ï¼Œè¿™é‡Œä¸åŒ…å«â€˜0xâ€™ä¸¤ä¸ªå­—ç¬¦
+	// ¶ÁÈ¡Ë½Ô¿£¬ÕâÀï²»°üº¬¡®0x¡¯Á½¸ö×Ö·û
 
  
 
 	var privKey = ethereumjs.Buffer.Buffer.from('6C276048FD6D74ED0A3F6B94FFA3EF216173DA5FA5BB9A813C421974A472C610', 'hex');
 	
 	
-	// ä»¥å¤ªå¸è½¬è´¦    
-	// å…ˆèŽ·å–å½“å‰è´¦å·äº¤æ˜“çš„nonce
+	// ÒÔÌ«±Ò×ªÕË    
+	// ÏÈ»ñÈ¡µ±Ç°ÕËºÅ½»Ò×µÄnonce
 	web3.eth.getTransactionCount(addr_from, (err, txCount) => {
 
 	  const txObject = {
@@ -471,7 +471,7 @@
 
 
 	</script>
-
+ <!-- <script src="js/test.js"></script>  -->
     <!-- <script src="js/test.js"></script>  -->
   </body>
 </html>
