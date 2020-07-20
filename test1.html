@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+     
+  </head>
+  <body>
+    222222222
+
+ 
+    <script src="js/web3-1.0.min.js"></script>
+	<script src="js/ethereumjs-tx.js"></script>
+
+	<script >
+		
+	var abi = [
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "name",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_spender",
+				"type": "address"
+			},
+			{
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "approve",
+		"outputs": [
+			{
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "totalSupply",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_from",
+				"type": "address"
+			},
+			{
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "transferFrom",
+		"outputs": [
+			{
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "decimals",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_owner",
+				"type": "address"
+			}
+		],
+		"name": "balanceOf",
+		"outputs": [
+			{
+				"name": "balance",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "symbol",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "transfer",
+		"outputs": [
+			{
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_owner",
+				"type": "address"
+			},
+			{
+				"name": "_spender",
+				"type": "address"
+			}
+		],
+		"name": "allowance",
+		"outputs": [
+			{
+				"name": "remaining",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"name": "_initialAmount",
+				"type": "uint256"
+			},
+			{
+				"name": "_tokenName",
+				"type": "string"
+			},
+			{
+				"name": "_decimalUnits",
+				"type": "uint8"
+			},
+			{
+				"name": "_tokenSymbol",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "_from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "Transfer",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "_owner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "_spender",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "Approval",
+		"type": "event"
+	}
+]
+
+	 
+
+	  var web3;
+		if (typeof web3 !== 'undefined') {
+			web3 = new Web3(web3.currentProvider);
+		} else {
+			web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/5d0468ce18ad4a39a6aa19313d7af945"));
+		} 
+		
+			
+	 //var info = web3.eth.getBlock(3150);
+	 //console.log(info);
+
+	//8246686
+	 
+	//0x4aa5241a64ae7e0ddae070538818dfd49b01245324c34323fed97ea16c0c14cf 
+	 //web3.eth.getBlockTransactionCount("0x84c4346139cb249b7256fa1e17b915d7ad1def5975e195b8c2c7c6e64dfd8939").then(console.log);
+
+	 //web3.eth.getTransaction('0x4aa5241a64ae7e0ddae070538818dfd49b01245324c34323fed97ea16c0c14cf').then(console.log);
+	
+	 
+	
+
+ 
+		//web3.eth.getBlockNumber().then(console.log);
+		//console.log("值为:", "11111");
+	 // alert();
+	var balance = web3.eth.getBalance("0x977fd7cfe42d757Aa914098F8A05E0509B40658B");
+	//console.log(balance); // instanceof BigNumber
+ 
+	
+	
+
+	
+	var contractAddress = "0xcDB2E4346f68754F5383ca05af5685ae850f6B3E";
+	 
+	// 账号
+	var currentAccount = "0x977fd7cfe42d757Aa914098F8A05E0509B40658B";
+
+
+	// 定义合约
+	var myContract = new web3.eth.Contract(abi, contractAddress, {
+		from: currentAccount, // default from address
+		gasPrice: '10000000000' // default gas price in wei, 10 gwei in this case
+	});
+	
+
+	
+	
+	 alert(1);
+	throw SyntaxError();
+	alert("after error.");
+
+	//监听某个地址交易记录
+	var addr = "0x977fd7cfe42d757Aa914098F8A05E0509B40658B"
+	var filter = web3.eth.filter({fromBlock:0, toBlock:'latest', address: addr});
+	filter.get(function (err, transactions) {
+	  transactions.forEach(function (tx) {
+		var txInfo = web3.eth.getTransaction(tx.transactionHash);
+		//这时可以将交易信息txInfo存入数据库
+		console.log(txInfo);
+	  });
+	});
+
+
+
+	//查询合约在某一地址交易记录
+	myContract.getPastEvents('Transfer', {
+    filter: {_from: '0x977fd7cfe42d757Aa914098F8A05E0509B40658B'},
+    fromBlock: 23081,
+    toBlock: 'latest'
+}, (error, events) => { console.log(events); });
+	
+	//ERC20转账后Transaction的记录是这样的：value是0，不能据此得到ERC20交易信息。需要用到 TransactionReceipt
+	//得到交易额，里面的logs的data就是交易额
+	var transaction = web3.eth.getTransactionReceipt("0x4aa5241a64ae7e0ddae070538818dfd49b01245324c34323fed97ea16c0c14cf");
+	console.log(transaction);
+
+
+
+	// 查看某个账号的代币余额
+	myContract.methods.balanceOf(currentAccount).call({}, function(error, result){
+		if(!error) {
+			console.log(result);
+		} else {
+			console.log(error);
+		}
+	});
+	
+
+	
+
+
+	var amount =8;
+	var addr_from = "0x977fd7cfe42d757Aa914098F8A05E0509B40658B";
+	var addr_to = "0x5D2238753F3ca5E649f9250C303d5c196A069F24";
+	
+
+	//代币转账
+
+	// 补齐64位，不够前面用0补齐
+	function addPreZero(num){
+	  var t = (num+'').length,
+	  s = '';
+	  for(var i=0; i<64-t; i++){
+		s += '0';
+	  }
+	  return s+num;
+	}
+	 
+	web3.eth.getTransactionCount(currentAccount, web3.eth.defaultBlock.pending).then(function(nonce){
+	 
+		// 获取交易数据
+		var txData = {
+			nonce: web3.utils.toHex(nonce),
+			gasLimit: web3.utils.toHex(99000),   
+			gasPrice: web3.utils.toHex(web3.utils.toWei('10', 'gwei')),
+			// 注意这里是代币合约地址  
+			to: contractAddress,
+			from: addr_from,
+			// 调用合约转账value这里留空
+			value: '0x00',         
+			// data的组成，由：0x + 要调用的合约方法的function signature + 要传递的方法参数，每个参数都为64位(对transfer来说，第一个是接收人的地址去掉0x，第二个是代币数量的16进制表示，去掉前面0x，然后补齐为64位)
+			data: '0x' + 'a9059cbb' + addPreZero('5D2238753F3ca5E649f9250C303d5c196A069F23') + addPreZero(web3.utils.toHex(1000).substr(2))
+		}
+	 
+		 
+		alert(addPreZero(web3.utils.toHex(1000).substr(2)));
+
+		var privateKey = ethereumjs.Buffer.Buffer.from('6C276048FD6D74ED0A3F6B94FFA3EF216173DA5FA5BB9A813C421974A472C610', 'hex'); 
+		
+		var tx =   new ethereumjs.Tx(txData)
+	    tx.sign(privateKey)
+	 
+		var serializedTx = tx.serialize().toString('hex');
+	 
+		web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'), function(err, hash) {
+			if (!err) {
+				console.log(hash);
+			} else {
+				console.error(err);
+			}
+		});
+	}); 
+		
+
+
+	
+
+
+	
+	 
+
+	
+	
+	
+	//eth转账 
+
+	// 读取私钥，这里不包含‘0x’两个字符
+
+ 
+
+	var privKey = ethereumjs.Buffer.Buffer.from('6C276048FD6D74ED0A3F6B94FFA3EF216173DA5FA5BB9A813C421974A472C610', 'hex');
+	
+	
+	// 以太币转账    
+	// 先获取当前账号交易的nonce
+	web3.eth.getTransactionCount(addr_from, (err, txCount) => {
+
+	  const txObject = {
+		nonce:    web3.utils.toHex(txCount),
+		gasLimit: web3.utils.toHex(800000), // Raise the gas limit to a much higher amount
+		gasPrice: web3.utils.toHex(web3.utils.toWei('10', 'gwei')),
+		to: addr_to,
+		value: 151995303000000000,
+		data: myContract.methods.transfer(addr_to, 1200000).encodeABI()
+	  }
+		
+	 
+ 
+	 
+	  const tx =   new ethereumjs.Tx(txObject)
+	  tx.sign(privKey)
+
+	  const serializedTx = tx.serialize()
+	  const raw = '0x' + serializedTx.toString('hex')
+
+	 
+	  
+	    web3.eth.sendSignedTransaction(raw).on('receipt', res => {
+        console.log('ookk');
+		}).on('error', err => {
+			console.log('eerr'); 
+
+		})
+
+
+	})
+
+
+
+
+
+
+	alert(web3.eth.signTransaction);
+
+	balance.then(function(value){
+	    alert(web3.utils.fromWei(value) );
+	},function(error){
+	   
+	});
+
+
+	
+ 
+
+
+	</script>
+
+    <!-- <script src="js/test.js"></script>  -->
+  </body>
+</html>
