@@ -1,0 +1,195 @@
+App = {
+  web3Provider: null,
+  contracts: {},
+
+  init: async function() {
+    // Load pets.
+    $.getJSON('../pets.json', function(data) {
+      var petsRow = $('#petsRow');
+      var petTemplate = $('#petTemplate');
+
+      for (i = 0; i < data.length; i ++) {
+        petTemplate.find('.panel-title').text(data[i].name);
+        petTemplate.find('img').attr('src', data[i].picture);
+        petTemplate.find('.pet-breed').text(data[i].breed);
+        petTemplate.find('.pet-age').text(data[i].age);
+        petTemplate.find('.pet-location').text(data[i].location);
+        petTemplate.find('.btn-adopt').attr('data-id', data[i].id);
+
+        petsRow.append(petTemplate.html());
+      }
+    });
+
+    return await App.initWeb3();
+  },
+
+  initWeb3: async function() {
+    /*
+     * Replace me...
+     */
+	 
+	if (window.ethereum) {
+	  App.web3Provider = window.ethereum;
+	  
+	  try {
+		// Request account access
+		await window.ethereum.enable();
+	  } catch (error) {
+		// User denied account access...
+		console.error("User denied account access")
+	  }
+	}
+	// Legacy dapp browsers...
+	else if (window.web3) {
+	  App.web3Provider = window.web3.currentProvider;
+	}
+	// If no injected web3 instance is detected, fall back to Ganache
+	else {
+	   //App.web3Provider = new Web3.providers.HttpProvider('http://127.0.0.1:8545/');
+	   App.web3Provider = new Web3.providers.HttpProvider('https://mainnet.infura.io/v3/5d0468ce18ad4a39a6aa19313d7af945');
+	}
+	 web3 = new Web3(App.web3Provider);
+	 //alert(web3.version.node);
+
+	 // wei是以太坊上的的最小单位，ether小数点后18位为一个wei
+	var balanceWei = web3.eth.getBalance("0x9D3592092e23606E899fb8f05692Ed1a3b323F4e").toNumber();
+	// 从wei转换成ether
+	var balance = web3.fromWei(balanceWei, 'ether');
+	 alert(balance);
+
+
+	
+	var abi = [
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "SayHello",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+	];
+
+	// creation of contract object
+	var MyContract = web3.eth.contract(abi);
+
+	// initiate contract for an address
+	var myContractInstance = MyContract.at('0x3Ab609265fc2CaeD09966D9d62ddBD58291b5314');
+
+	// call constant function
+	var result = myContractInstance.SayHello();
+	alert(result);
+
+
+
+    return App.initContract();
+  },
+
+  initContract: function() {
+    /*
+     * Replace me...
+     */
+	
+	
+	//另一种调用合约的方法， 根据合约abi和合约地址调用，适合用于调用外部网络上的合约
+	//合约的方法可以直接调用，属性不能直接调用
+	
+ 
+
+
+
+	$.getJSON('Adoption.json', function(data) {
+	  // Get the necessary contract artifact file and instantiate it with truffle-contract
+	  var AdoptionArtifact = data;
+    
+
+
+	  App.contracts.Adoption = TruffleContract(AdoptionArtifact);
+
+	  // Set the provider for our contract
+	  App.contracts.Adoption.setProvider(App.web3Provider);
+
+ 
+	  // Use our contract to retrieve and mark the adopted pets
+	  
+	  return App.markAdopted();
+	});
+    
+    return App.bindEvents();
+  },
+
+  bindEvents: function() {
+    $(document).on('click', '.btn-adopt', App.handleAdopt);
+  },
+
+  markAdopted: function(adopters, account) {
+    /*
+     * Replace me...
+     */
+
+	 var adoptionInstance;
+	 
+	App.contracts.Adoption.deployed().then(function(instance) {
+	  adoptionInstance = instance;
+	  
+	  return adoptionInstance.getAdopters.call();
+	}).then(function(adopters) {
+	  for (i = 0; i < adopters.length; i++) {
+		if (adopters[i] !== '0x0000000000000000000000000000000000000000') {
+		  $('.panel-pet').eq(i).find('button').text('Success').attr('disabled', true);
+		}
+	  }
+	}).catch(function(err) {
+	  console.log(err.message);
+	}); 
+	 
+
+  },
+
+  handleAdopt: function(event) {
+    event.preventDefault();
+	
+    var petId = parseInt($(event.target).data('id'));
+
+    /*
+     * Replace me...
+     */
+
+	 var adoptionInstance;
+	 web3.eth.getAccounts(function(error, accounts) {
+	  if (error) {
+		console.log(error);
+	  }
+
+		var account = accounts[0];
+		  
+		//return;
+
+	  App.contracts.Adoption.deployed().then(function(instance) {
+		adoptionInstance = instance;
+		 
+		// Execute adopt as a transaction by sending account
+		 return adoptionInstance.adopt(petId, {from: account});
+	  }).then(function(result) {
+		return App.markAdopted();
+	  }).catch(function(err) {
+		console.log(err.message);
+	  });
+	}); 
+
+	 
+  }
+
+};
+
+$(function() {
+  $(window).load(function() {
+    App.init();
+  });
+});
